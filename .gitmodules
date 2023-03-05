@@ -1,0 +1,15 @@
+[submodule "perfilEstudiante"]
+	path = perfilEstudiante
+	url = https://github.com/JohanaForero/microservicios.git
+[submodule "perfildelEstudiante"]
+	path = perfildelEstudiante
+	url = https://github.com/JohanaForero/microservicios.git
+[submodule "materias"]
+	path = materias
+	url = https://github.com/JohanaForero/microservicios.git
+[submodule "usuario"]
+	path = usuario
+	url = https://github.com/JohanaForero/microservicios.git
+[submodule "Usuario"]
+	path = Usuario
+	url = https://github.com/JohanaForero/microservicios.git
