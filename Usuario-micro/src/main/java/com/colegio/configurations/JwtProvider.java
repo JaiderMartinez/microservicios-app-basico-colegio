@@ -10,12 +10,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import com.colegio.service.IUsuarioService;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtProvider {
@@ -24,7 +22,6 @@ public class JwtProvider {
 	private String identityPoolUrl;
 	private static final String USERNAME_FIELD = "cognito:username";
     private static final String AUTHORIZATION = "AutorizarToken";
-    
     
     @Autowired
     ConfigurableJWTProcessor<?> configurableJWTProcessor;
