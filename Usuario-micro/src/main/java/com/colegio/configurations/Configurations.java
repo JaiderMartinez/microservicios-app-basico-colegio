@@ -10,7 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-//@EnableWebSecurity
 public class Configurations {
 
 	@Autowired
@@ -24,6 +23,12 @@ public class Configurations {
 		http.cors().and()
     	.csrf().disable()
     	.authorizeHttpRequests((authz) -> authz
+    			.requestMatchers("/auth/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/v3/api-docs/**")
+    			.permitAll()
                 .anyRequest()
                 .authenticated())
         .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

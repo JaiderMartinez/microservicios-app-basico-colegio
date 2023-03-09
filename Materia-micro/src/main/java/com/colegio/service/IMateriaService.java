@@ -10,4 +10,6 @@ public interface IMateriaService {
 	public Materia getMateriaById(Long id);
 	public Materia save(Materia materia);
 	public List<Materia> byUsuarioId(int usuarioId);
+	public List<Materia> listaMateriasAprobadas(int usuarioId);
+	public List<Materia> listaMateriasDesaprobadas(int usuarioId);
 }

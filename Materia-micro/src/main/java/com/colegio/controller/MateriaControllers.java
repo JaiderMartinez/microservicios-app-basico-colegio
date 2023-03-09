@@ -21,15 +21,6 @@ public class MateriaControllers {
 	@Autowired
 	private IMateriaService materiaService;
 	
-	@GetMapping
-	public ResponseEntity<List<Materia>> listaMaterias() {
-		List<Materia> materias = materiaService.getAll();
-		if (materias.isEmpty()) {
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.ok(materias);
-	}
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<Materia> obtenerMateria(@PathVariable("id") Long id) {
 		Materia materia = materiaService.getMateriaById(id);
@@ -52,5 +43,21 @@ public class MateriaControllers {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(materias);
+	}
+	
+	@GetMapping("/usuario/aprobadas/{usuarioId}")
+	public ResponseEntity<List<Materia>> listarMateriasAprobadas(@PathVariable("usuarioId") int id) {
+		if (materiaService.listaMateriasAprobadas(id) == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(materiaService.listaMateriasAprobadas(id));
+	}
+	
+	@GetMapping("/usuario/desaprobadas/{usuarioId}")
+	public ResponseEntity<List<Materia>> listarMateriasDesaprobadas(@PathVariable("usuarioId") int id) {
+		if (materiaService.listaMateriasDesaprobadas(id) == null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(materiaService.listaMateriasDesaprobadas(id));
 	}
 }
