@@ -15,28 +15,28 @@ import com.colegio.entity.Materia;
 import com.colegio.service.IMateriaService;
 
 @RestController
-@RequestMapping("/materias")
+@RequestMapping("/mic-materias")
 public class MateriaControllers {
 
 	@Autowired
 	private IMateriaService materiaService;
 	
-	@GetMapping("/{id}")
+	@GetMapping("materia/{id}")
 	public ResponseEntity<Materia> obtenerMateria(@PathVariable("id") Long id) {
-		Materia materia = materiaService.getMateriaById(id);
-		if (materia == null) {
+		Materia materias = materiaService.getMateriaById(id);
+		if (materias == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(materia);
+		return ResponseEntity.ok(materias);
 	}
 	
-	@PostMapping
+	@PostMapping("materia")
 	public ResponseEntity<Materia> guardarMaterias(@RequestBody Materia materia) {
 		Materia nuevaMateria = materiaService.save(materia);
 		return ResponseEntity.ok(nuevaMateria);
 	}
 	
-	@GetMapping("/usuario/{usuarioId}")
+	@GetMapping("materias/usuario/{usuarioId}")
 	public ResponseEntity<List<Materia>> listarMateriasPorUsuarioId(@PathVariable("usuarioId") int id) {
 		List<Materia> materias = materiaService.byUsuarioId(id);
 		if (materias.isEmpty()) {
@@ -45,7 +45,7 @@ public class MateriaControllers {
 		return ResponseEntity.ok(materias);
 	}
 	
-	@GetMapping("/usuario/aprobadas/{usuarioId}")
+	@GetMapping("/usuario/MateriasAprobadas/{usuarioId}")
 	public ResponseEntity<List<Materia>> listarMateriasAprobadas(@PathVariable("usuarioId") int id) {
 		if (materiaService.listaMateriasAprobadas(id) == null) {
 			return ResponseEntity.noContent().build();
@@ -53,7 +53,7 @@ public class MateriaControllers {
 		return ResponseEntity.ok(materiaService.listaMateriasAprobadas(id));
 	}
 	
-	@GetMapping("/usuario/desaprobadas/{usuarioId}")
+	@GetMapping("/usuario/MateriasDesaprobadas/{usuarioId}")
 	public ResponseEntity<List<Materia>> listarMateriasDesaprobadas(@PathVariable("usuarioId") int id) {
 		if (materiaService.listaMateriasDesaprobadas(id) == null) {
 			return ResponseEntity.noContent().build();
