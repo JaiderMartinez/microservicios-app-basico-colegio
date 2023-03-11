@@ -47,7 +47,7 @@ public class UsuarioController {
 	
 	
 	@GetMapping("/Usuario/perfilDelEstudiante/{usuarioId}")
-	public ResponseEntity<PerfilEstudiante> listarEstudiantes(@PathVariable("usuarioId") Integer id){
+	public ResponseEntity<PerfilEstudiante> listarEstudiante(@PathVariable("usuarioId") Integer id){
 		if (!usuarioService.findExistUsuario(id)) {
 			return ResponseEntity.noContent().build();
 		}

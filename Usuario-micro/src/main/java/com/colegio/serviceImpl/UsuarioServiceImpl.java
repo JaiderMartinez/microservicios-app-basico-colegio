@@ -3,6 +3,7 @@ package com.colegio.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -42,17 +43,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public List<Materia> listarMaterias(Long usuarioId) {
-		List<Materia> materias = webClient.get().uri("http://localhost:8081/mic-materias/materias/usuario/"  + usuarioId).retrieve().bodyToFlux(Materia.class)
-															.collectList().block();
+		List<Materia> materias = webClient.get().uri("http://localhost:8081/mic-materias/materias/usuario/"  + usuarioId)
+															.retrieve()
+															.bodyToFlux(Materia.class)
+															.collectList()
+															.block();
 		return materias;
 	}
 
 	@Override
 	public PerfilEstudiante listarEstudiantes(int usuarioId) {
-	PerfilEstudiante  estudiante = this.webClient.get().uri("http://localhost:8082/PerfilEstudiante-micro/Perfil//usuario/" + usuarioId)
+	PerfilEstudiante  estudiante = this.webClient.get().uri("http://localhost:8082/PerfilEstudiante-micro/Perfil/" + usuarioId)
 														.retrieve()
-														.bodyToMono(PerfilEstudiante.class)
-														.block();
+														.bodyToFlux(PerfilEstudiante.class)
+														.blockFirst();
 		return estudiante;
 	}
 
