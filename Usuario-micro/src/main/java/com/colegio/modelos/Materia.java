@@ -2,13 +2,12 @@ package com.colegio.modelos;
 
 public class Materia {
 
-	private int id;
+	private Long id;
 	private int nota;
 	private String nombre;
 	private int usuario_id;
 
-	public Materia() {
-	}
+	public Materia() {}
 
 	public Materia(int nota, String nombre, int usuario_id) {
 		this.nota = nota;
@@ -16,11 +15,11 @@ public class Materia {
 		this.usuario_id = usuario_id;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

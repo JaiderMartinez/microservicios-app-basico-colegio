@@ -12,50 +12,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.colegio.modelo.Usuario;
+import com.colegio.entity.Usuario;
 import com.colegio.modelos.Materia;
 import com.colegio.modelos.PerfilEstudiante;
 import com.colegio.service.IUsuarioService;
 
 @RestController
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "/Usuario-micro")
 public class UsuarioController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
-
-	@GetMapping
-	public ResponseEntity<List<Usuario>> listarUsuarios() {
-		return ResponseEntity.ok(usuarioService.listarUsuarios());
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> obtenerUsuario(@PathVariable("id") int id) {
-		Usuario usuario = usuarioService.encontrarUsuario(id);
-		if (usuario == null) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(usuario);
-	}
-
-	@PostMapping
+	
+	@PostMapping("/Usuario")
 	public ResponseEntity<Usuario> guardarUsuario(@RequestBody Usuario usuario) {
-		
 		return ResponseEntity.ok(usuarioService.guardar(usuario));
 	}
 
-	@GetMapping("/materias/{usuarioId}")
+	@GetMapping("/Usuario/{id}")
+	public ResponseEntity<Usuario> obtenerUsuario(@PathVariable("id") int id) {
+		if (!usuarioService.findExistUsuario(id)) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(usuarioService.encontrarUsuario(id));
+	}
+
+	@GetMapping("/Usuario/materias/{usuarioId}")
 	public ResponseEntity<List<Materia>> listarMaterias(@PathVariable("usuarioId") Long id){
-		
-		if(usuarioService.encontrarUsuario((int) (long)id) == null) {
+		if (!usuarioService.findExistUsuario((int) (long) id)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(usuarioService.listarMaterias(id));
 	}
 	
 	
-	@GetMapping("/perfilDelEstudiante/{usuarioId}")
-	public ResponseEntity<List<PerfilEstudiante>> listarEstudiantes(@PathVariable("usuarioId") Integer id){
+	@GetMapping("/Usuario/perfilDelEstudiante/{usuarioId}")
+	public ResponseEntity<PerfilEstudiante> listarEstudiantes(@PathVariable("usuarioId") Integer id){
+		if (!usuarioService.findExistUsuario(id)) {
+			return ResponseEntity.noContent().build();
+		}
 		return ResponseEntity.ok(usuarioService.listarEstudiantes(id));
 	}
 }

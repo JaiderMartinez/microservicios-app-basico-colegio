@@ -1,4 +1,4 @@
-package com.colegio.modelo;
+package com.colegio.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
