@@ -30,4 +30,5 @@ public class EstudianteService {
 	public List<Estudiante> byUsuarioId(int usuarioId) {
 		return estudianteRepository.findByUsuario(usuarioId);
 	}
+
 }
