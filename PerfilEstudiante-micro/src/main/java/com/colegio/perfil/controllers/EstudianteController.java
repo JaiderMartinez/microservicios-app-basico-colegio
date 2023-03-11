@@ -36,12 +36,4 @@ public class EstudianteController {
 		return ResponseEntity.ok(nuevoEstudiante);
 	}
 	
-	@GetMapping("Perfil/usuario/{usuarioId}")
-	public ResponseEntity<List<Estudiante>> listarEstudaintesPorUsuarioId(@PathVariable("usuarioId") int id) {
-		List<Estudiante> estudiantes = estudianteService.byUsuarioId(id);
-		if (estudiantes.isEmpty()) {
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.ok(estudiantes);
-	}
 }
