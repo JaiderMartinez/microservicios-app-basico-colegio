@@ -47,10 +47,10 @@ public class UsuarioController {
 	
 	
 	@GetMapping("/Usuario/perfilDelEstudiante/{usuarioId}")
-	public ResponseEntity<PerfilEstudiante> listarEstudiante(@PathVariable("usuarioId") Integer id){
+	public ResponseEntity<PerfilEstudiante> obtenerPerfilDelEstudiante(@PathVariable("usuarioId") Integer id){
 		if (!usuarioService.findExistUsuario(id)) {
 			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.ok(usuarioService.listarEstudiantes(id));
+		return ResponseEntity.ok(usuarioService.mostrarPerfilDelEstudiante(id));
 	}
 }

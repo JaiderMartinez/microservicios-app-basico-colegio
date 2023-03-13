@@ -30,7 +30,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Usuario encontrarUsuario(Integer idUsuario) {
 		return usuarioRepo.findById(idUsuario).orElse(null);
 	}
@@ -52,7 +52,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
-	public PerfilEstudiante listarEstudiantes(int usuarioId) {
+	public PerfilEstudiante mostrarPerfilDelEstudiante(Integer usuarioId) {
 	PerfilEstudiante  estudiante = this.webClient.get().uri("http://localhost:8082/PerfilEstudiante-micro/Perfil/" + usuarioId)
 														.retrieve()
 														.bodyToFlux(PerfilEstudiante.class)

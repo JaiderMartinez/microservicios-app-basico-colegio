@@ -12,5 +12,5 @@ public interface IUsuarioService {
     public Usuario encontrarUsuario(Integer idUsuario);
     public boolean findExistUsuario(Integer id);
     public List<Materia> listarMaterias(Long usuarioId);
-    public PerfilEstudiante listarEstudiantes(int usuarioId);
+    public PerfilEstudiante mostrarPerfilDelEstudiante(Integer usuarioId);
 }
