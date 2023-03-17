@@ -1,4 +1,4 @@
-package com.colegio.materias;
+package com.colegio.perfil;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
