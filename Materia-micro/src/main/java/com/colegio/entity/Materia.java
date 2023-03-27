@@ -21,14 +21,14 @@ public class Materia {
 	@Column
 	private String nombre;
 	@Column
-	private int usuario_id;
+	private int usuarioId;
 
 	public Materia() {}
 	
 	public Materia(int nota, String nombre, int usuario_id) {
 		this.nota = nota;
 		this.nombre = nombre;
-		this.usuario_id = usuario_id;
+		this.usuarioId = usuario_id;
 	}
 
 	public Long getId() {
@@ -55,12 +55,12 @@ public class Materia {
 		this.nombre = nombre;
 	}
 
-	public int getUsuario_id() {
-		return usuario_id;
+	public int getUsuarioid() {
+		return usuarioId;
 	}
 
-	public void setUsuario_id(int usuario_id) {
-		this.usuario_id = usuario_id;
+	public void setUsuarioId(int usuario_id) {
+		this.usuarioId = usuario_id;
 	}
 	
 	

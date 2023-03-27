@@ -38,16 +38,16 @@ public class MateriaService implements IMateriaService {
 	@Transactional
 	@Override
 	public List<Materia> byUsuarioId(int usuarioId){
-		return materiaRepository.findByUsuario(usuarioId);
+		return materiaRepository.findByUsuarioId(usuarioId);
 	}
 
 	@Override
 	public List<Materia> listaMateriasAprobadas(int usuarioId) {
-		if(materiaRepository.findMateriaAprobadaByNotaAndUsuarioId(usuarioId).size() == 0 
-				|| materiaRepository.findMateriaAprobadaByNotaAndUsuarioId(usuarioId).isEmpty()) {
+		if(materiaRepository.findByNotaMajor(usuarioId).size() == 0 
+				|| materiaRepository.findByNotaMajor(usuarioId).isEmpty()) {
 			return null;
 		}
-		return materiaRepository.findMateriaAprobadaByNotaAndUsuarioId(usuarioId);
+		return materiaRepository.findByNotaMajor(usuarioId);
 	}
 
 	@Override
