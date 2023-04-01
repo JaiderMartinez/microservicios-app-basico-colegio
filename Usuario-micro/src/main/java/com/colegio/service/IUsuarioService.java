@@ -13,4 +13,6 @@ public interface IUsuarioService {
     public boolean findExistUsuario(Integer id);
     public List<Materia> listarMaterias(Long usuarioId);
     public PerfilEstudiante mostrarPerfilDelEstudiante(Integer usuarioId);
+    public String signIn(String username , String password);
+    
 }

@@ -1,9 +1,11 @@
 package com.colegio.serviceImpl;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,6 +15,14 @@ import com.colegio.modelos.Materia;
 import com.colegio.modelos.PerfilEstudiante;
 import com.colegio.repositorio.IUsuarioDao;
 import com.colegio.service.IUsuarioService;
+
+import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthFlowType;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthResponse;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -58,6 +68,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
 														.bodyToFlux(PerfilEstudiante.class)
 														.blockFirst();
 		return estudiante;
+	}
+
+	@Override
+	public String signIn(String username, String password) {
+		CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
+				.region(Region.US_EAST_1).credentialsProvider(ProfileCredentialsProvider.create()).build();
+		try {
+			Map<String, String> authParameters = new HashMap<>();
+			authParameters.put("USERNAME", username);
+			authParameters.put("PASSWORD", password);
+			InitiateAuthRequest authRequest = InitiateAuthRequest.builder().clientId("6641hk7g0mov9hfvmujlmdv8hm")
+					.authParameters(authParameters).authFlow(AuthFlowType.USER_PASSWORD_AUTH).build();
+			InitiateAuthResponse response = identityProviderClient.initiateAuth(authRequest);
+			//Obtiene el id token del usuario, se puede obtener el access token
+			return response.authenticationResult().idToken();
+		} catch (CognitoIdentityProviderException e) {
+			System.out.println(e.awsErrorDetails().errorMessage());
+		} finally {
+			identityProviderClient.close();
+		}
+		return null;
 	}
 
 }

@@ -29,7 +29,9 @@ public class Configurations {
                         "/swagger-resources/**",
                         "/v3/api-docs/**")
     			.permitAll()
-                .anyRequest()
+    			.requestMatchers("/Usuario-micro/Usuario/sing-in/**")
+                .permitAll()
+    			.anyRequest()
                 .authenticated())
         .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
         .and()

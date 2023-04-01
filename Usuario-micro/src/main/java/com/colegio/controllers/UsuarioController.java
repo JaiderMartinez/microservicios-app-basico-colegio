@@ -24,6 +24,16 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	
+	@GetMapping("/Usuario/sing-in/{username}/{password}")
+	public ResponseEntity<String> iniciarSesionUsuario(@PathVariable("username") String username, @PathVariable("password") String password) {
+		String token = usuarioService.signIn(username, password);
+		if(token == null || token.length() < 1)  {
+			return new ResponseEntity<String>("Username o password incorrectos", HttpStatus.UNAUTHORIZED);
+		}
+			
+		return ResponseEntity.ok(token);
+	}
+	
 	@PostMapping("/Usuario")
 	public ResponseEntity<Usuario> guardarUsuario(@RequestBody Usuario usuario) {
 		return ResponseEntity.ok(usuarioService.guardar(usuario));
