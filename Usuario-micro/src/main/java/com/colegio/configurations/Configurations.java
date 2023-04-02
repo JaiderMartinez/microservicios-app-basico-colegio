@@ -4,6 +4,7 @@ package com.colegio.configurations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,7 +20,7 @@ public class Configurations {
 	JwtEntryPoint jwtEntryPoint;
 	
 	@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and()
     	.csrf().disable()
     	.authorizeHttpRequests((authz) -> authz
@@ -29,15 +30,14 @@ public class Configurations {
                         "/swagger-resources/**",
                         "/v3/api-docs/**")
     			.permitAll()
-    			.requestMatchers("/Usuario-micro/Usuario/sing-in/**")
-                .permitAll()
+    			.requestMatchers(HttpMethod.GET, "/Usuario-micro/Usuario/sing-in/{username}/{password}").permitAll()
     			.anyRequest()
                 .authenticated())
         .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     
-    http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);   
-    return http.build();
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);   
+		return http.build();
     }
 }

@@ -1,45 +1,28 @@
 package com.colegio.controllers;
 
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
-
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.colegio.entity.Usuario;
-import com.colegio.modelos.Materia;
-import com.colegio.modelos.PerfilEstudiante;
-import com.colegio.repositorio.IUsuarioDao;
-import com.colegio.service.IUsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UsuarioControllerTest {
 
 	@Autowired
@@ -48,11 +31,13 @@ public class UsuarioControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	
 	@Test
-	void guardarUsuario() throws Exception {
+	void guardarUsuario_1() throws Exception {
 		MvcResult result = mockMvc
 				.perform(MockMvcRequestBuilders.post("/Usuario-micro/Usuario")
-						.header("AutorizarToken", "eyJraWQiOiI4d2J5a1dRc0NpOVFnXC9mb2JRUksxdlo5dkI4WmVpVXJjV3pwd3hCTVYxVT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiVjFjSF9PbkkyMFZtLWNsQWEwYXVVZyIsInN1YiI6IjZiMmEyN2U4LWQ4NTYtNDJkMy1iZDhkLWE2YzRhZDFiOWM0NiIsImF1ZCI6IjY2NDFoazdnMG1vdjloZnZtdWpsbWR2OGhtIiwiZXZlbnRfaWQiOiJkZmMxZTZkYi00MTYzLTRmMzQtODdiMC1mZGYzODkxZTVkZmMiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4MDM1OTE0NCwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfeml1d0tsd21VIiwiY29nbml0bzp1c2VybmFtZSI6IjEwOTAzNzg4NzQiLCJleHAiOjE2ODAzNjI3NDQsImlhdCI6MTY4MDM1OTE0NCwianRpIjoiYTc0NWYzNTctOTNhNy00MzhhLTk3ZWUtZjVhYzI3OWQ1YzNjIn0.FDeJHjP7lBAK4UXp5QAeZU0zpPbz6ikYWBnM4pthuQbarfrKSMM-4-dDH3bVauvRWi0cAMxfhbXLxxZVAn-mYT7aobfhU5vHb9Fm8-uW_lQxk3_Mx5SC9jHMCqQjORzDyIrF9TuIg0yWH2r_QFX6onSIqHw1ySsep_CtcBgxLbi-vElBLpmr6PE1NeIGksElsPmb81aZOXpwea79JWz9EvijSgsYyj1e19kcLamuEdXDdXqPnQkZ6bKSvQEDe8zqVhGITYu2hsJpJWKLPMU6T7mJ4MpWKG4Qu2r6pFZW2x57xEuAc3rs7nOcrR7kgA4fTauuVsXK93T1q5KrkNDqTQ")
+						.header("AutorizarToken",
+								"eyJraWQiOiI4d2J5a1dRc0NpOVFnXC9mb2JRUksxdlo5dkI4WmVpVXJjV3pwd3hCTVYxVT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiekVEQ09fVVBXS3M0aWlkR05VQy1NZyIsInN1YiI6IjZiMmEyN2U4LWQ4NTYtNDJkMy1iZDhkLWE2YzRhZDFiOWM0NiIsImF1ZCI6IjY2NDFoazdnMG1vdjloZnZtdWpsbWR2OGhtIiwiZXZlbnRfaWQiOiJjZTVjNTVjYy02YjkxLTQ0NmYtYmQ3Ni02NTUxYTIzNTI4N2IiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4MDM5MTYzMSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfeml1d0tsd21VIiwiY29nbml0bzp1c2VybmFtZSI6IjEwOTAzNzg4NzQiLCJleHAiOjE2ODAzOTUyMzEsImlhdCI6MTY4MDM5MTYzMSwianRpIjoiNDcwNWY0NmYtYjhiYy00OWE4LWFmNjAtZjE0ZjY5MWI2M2I4In0.Lp-9BtXXnaW5GThWY4a5tWlNllJx-cE8WqBISTmWSt9_EDknDevbmo1Y8Xz6YNUp89osnNRDHYzgAx2Q-zeqAh9DK-TR2_5YxTJUmZbBmoD2kdtqVWFGuB3IoFuu38E8VEhcEvWPMe8cBzOleNJCK3fNfBPQcBwZ3olRXrOJyz7ThjvdlveI6ZqpRFjyba0z9XbyQ8D_qSmHOhdI1cbSj7dp8ARcTYMQNeeZppSZtQZ76wFXpOdJ7UBwd4IJaXVdQ8rQ6yinrRV5TV_oafN8f9zIdsYob2ouiJ31wSTQkCJfbPdcM2eLCZLCS3NKyIKNkuKKWoRt3ONsBTjmuA3eAA")
 						.content(objectMapper.writeValueAsString(usuarioTest()))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
@@ -63,28 +48,21 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	void obtenerUsuario() throws Exception {
+	void obtenerUsuario_2() throws Exception {
 		MvcResult usuarioObtenido = mockMvc
 				.perform(MockMvcRequestBuilders.get("/Usuario-micro/Usuario/1")
+						.header("AutorizarToken",
+								"eyJraWQiOiI4d2J5a1dRc0NpOVFnXC9mb2JRUksxdlo5dkI4WmVpVXJjV3pwd3hCTVYxVT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiekVEQ09fVVBXS3M0aWlkR05VQy1NZyIsInN1YiI6IjZiMmEyN2U4LWQ4NTYtNDJkMy1iZDhkLWE2YzRhZDFiOWM0NiIsImF1ZCI6IjY2NDFoazdnMG1vdjloZnZtdWpsbWR2OGhtIiwiZXZlbnRfaWQiOiJjZTVjNTVjYy02YjkxLTQ0NmYtYmQ3Ni02NTUxYTIzNTI4N2IiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY4MDM5MTYzMSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfeml1d0tsd21VIiwiY29nbml0bzp1c2VybmFtZSI6IjEwOTAzNzg4NzQiLCJleHAiOjE2ODAzOTUyMzEsImlhdCI6MTY4MDM5MTYzMSwianRpIjoiNDcwNWY0NmYtYjhiYy00OWE4LWFmNjAtZjE0ZjY5MWI2M2I4In0.Lp-9BtXXnaW5GThWY4a5tWlNllJx-cE8WqBISTmWSt9_EDknDevbmo1Y8Xz6YNUp89osnNRDHYzgAx2Q-zeqAh9DK-TR2_5YxTJUmZbBmoD2kdtqVWFGuB3IoFuu38E8VEhcEvWPMe8cBzOleNJCK3fNfBPQcBwZ3olRXrOJyz7ThjvdlveI6ZqpRFjyba0z9XbyQ8D_qSmHOhdI1cbSj7dp8ARcTYMQNeeZppSZtQZ76wFXpOdJ7UBwd4IJaXVdQ8rQ6yinrRV5TV_oafN8f9zIdsYob2ouiJ31wSTQkCJfbPdcM2eLCZLCS3NKyIKNkuKKWoRt3ONsBTjmuA3eAA")
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
+				.andDo(print())
 				.andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.id").value(1)).andReturn();
+				.andExpect(jsonPath("$.id_usuario").value(1)).andReturn();
 		
 		Assertions.assertEquals(objectMapper.writeValueAsString(usuarioTest()),
 				usuarioObtenido.getResponse().getContentAsString());
 		Assertions.assertFalse(usuarioObtenido.getResponse().getContentAsString()
-				.equals(objectMapper.writeValueAsString(usuarioTestDos())), "Los dos estudiantes son iguales");
-	}
-	
-	@Test
-	void listarMaterias() {
-		
-	}
-	
-	@Test
-	void obtenerPerfilDelEstudiante() {
-		
+				.equals(objectMapper.writeValueAsString(usuarioTestDos())), "Los dos usuarios son iguales");
 	}
 	
 	private Usuario usuarioTest() {
@@ -100,5 +78,4 @@ public class UsuarioControllerTest {
 		user.setUser_dni("23445665");
 		return user;
 	}
-	
 }
